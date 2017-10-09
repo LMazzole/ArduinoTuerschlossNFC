@@ -6,6 +6,6 @@ NFC-Modul: [Mini-PN532-NFC-RFID-Reader-Writer-Module](http://www.aliexpress.com/
 Library: https://github.com/adafruit/Adafruit-PN532  
 
 
-##License
+## License
 
 * `BY-NC-SA` [Attribution-NonCommercial-ShareAlike](https://github.com/idleberg/Creative-Commons-Markdown/blob/spaces/4.0/by-nc-sa.markdown)
