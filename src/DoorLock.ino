@@ -6,19 +6,22 @@
  *
  *  Board: Arduino Leonardo \n
  *  Library: \link{https://github.com/adafruit/Adafruit-PN532\endlink \n
- *  Item List will follow..
  *
  */
 
 /* Includes */
+#define MYDEBUG
+#include "debug.h"
+
 #include "Arduino.h"
 #include <Wire.h>
 #include <SPI.h>
 #include <Adafruit_PN532.h>
 
 #include "global.h"
-//#include "../NFC/NFC.h"
 #include "KeyPad.h"
+#include "NfcPad.h"
+
 
 //SPI connection
 /**Check Adafruit library for more Information \link{https://github.com/adafruit/Adafruit-PN532\endlink
@@ -27,7 +30,7 @@
  * @param PN532_MOSI Master Output, Slave Input
  * @param PN532_SS Slave Select
  * */
-Adafruit_PN532 nfc(PN532_SCK,
+NfcPad nfcpad(PN532_SCK,
                    PN532_MISO,
                    PN532_MOSI,
                    PN532_SS);
@@ -41,7 +44,7 @@ Adafruit_PN532 nfc(PN532_SCK,
 #endif
 
 KeyPad keypad;
-//NfcPad nfcpad;
+// NfcPad nfcpad;
 
 //=============================================================================================================
 void setup()
@@ -106,15 +109,13 @@ void loop()
 
 //=====================================================================================================
 //ABFRAGE NFC
-//  Serial.println("Abfrage NFC");
-//  
-//  nfcpad.monitoring()
+  DEBUG_PRINTLN("Abfrage NFC");
 
- 
+  nfcpad.monitoring(500);
+
+
 //=====================================================================================================
 //Check Keypad-Input
-  Serial.println("Check for Input on Keypad");
-  keypad.monitoring();
-  
+  DEBUG_PRINTLN("Check for Input on Keypad");
+  keypad.monitoring(8000);
 }
-  

@@ -54,9 +54,9 @@ const int maxIN = (10 + 1);
 static char secretCode[] = {button3, button3, button3, button3};
 
 /** customize your authorized cards here */
-//const unsigned long int authorizedCards[] = {	3295930656},	// ""TestCard""
-//
-//char* authorizedCardsName[] = { "TestCard"};
+const unsigned long int authorizedCards[] = {	3295930656} ;	// ""TestCard""
+
+// char* authorizedCardsName[] = {"TestCard"};
 
 
 
@@ -64,7 +64,7 @@ static char secretCode[] = {button3, button3, button3, button3};
 const int k = sizeof(secretCode) / sizeof(secretCode[0]);
 
 /** Length of your authorizedCards array */
-//const int authorizedCardsSize = sizeof(authorizedCards) / sizeof(authorizedCards[0]);
+const int authorizedCardsSize = sizeof(authorizedCards) / sizeof(authorizedCards[0]);
 
 
 

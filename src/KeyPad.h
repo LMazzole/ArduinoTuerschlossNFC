@@ -1,6 +1,9 @@
 #ifndef KEYPAD_H_
 #define KEYPAD_H_
 
+#define MYDEBUG
+#include "debug.h"
+
 #include "Arduino.h"
 #include "global.h"
 
@@ -21,7 +24,7 @@ private:
   char inputCode[maxIN];
 
   /**Set a Timeout for the Keypad */
-  const long keypadTimeout = 8000;
+  // const long keypadTimeout = 8000;
 
 public:
     KeyPad();
@@ -31,7 +34,7 @@ public:
     void accesdenied();
     void checkCode(int p);
     void reset();
-    void monitoring();
+    void monitoring(unsigned int timeout);
 };
 
 #endif //KEYPAD_H_

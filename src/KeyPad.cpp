@@ -34,7 +34,7 @@ KeyPad::KeyPad()
   *  @return Void
   */
  {
-   Serial.println("Access granted");
+   DEBUG_PRINTLN("Access granted");
    delay(1);
    digitalWrite(ledOpen, HIGH);
    analogWrite(doorPin, 255);
@@ -52,8 +52,7 @@ KeyPad::KeyPad()
     * @return Void.
     */
    {
-     Serial.println("Access denied");
-     delay(1);
+     DEBUG_PRINTLN("Access denied");
      digitalWrite(ledClose, HIGH);
      delay(1000);  //1sec
      digitalWrite(ledClose, LOW);
@@ -68,7 +67,7 @@ KeyPad::KeyPad()
     * @return Void
     */
    {
-     Serial.println("Reset");
+     DEBUG_PRINTLN("Reset");
      int r;  //VarReset
      for (r = 0; r < (maxIN); ++r)
      {
@@ -93,41 +92,41 @@ KeyPad::KeyPad()
      {
        if (inputCode[i] == secretCode[i])
        {
- 	correct++;
+ 	       correct++;
        }
      }
      KeyPad::reset(); //reset code-vector
      if ((correct == k) && (p == k))
      {
-       KeyPad::accesgranted();
+       accesgranted();
      }
      else
      {
-       KeyPad::accesdenied();
+       accesdenied();
      }
    }
 
-   void KeyPad::monitoring()
+   void KeyPad::monitoring(unsigned int timeout)
    {
       unsigned long callTime = 0;
       unsigned long runTime = 0;
       int breakFlag = 0;
       int p = 0;          //VarCountlenghtIN
 
-     if (KeyPad::buttonPressed(buttonStar))
+     if (buttonPressed(buttonStar))
        {
-         Serial.println("--*--");
+         DEBUG_PRINTLN("--*--");
          digitalWrite(ledClose, HIGH); /**TODO:Fix Hardware Issue->switch to ledOpen when fixed*/
          delay(20);
          digitalWrite(ledClose, LOW);
-         KeyPad::reset();
+         reset();
          callTime = millis(); //Set time of function-call
          while (1)
          {
            runTime=millis();
-           if (runTime - callTime >= keypadTimeout) //Check for Timeout
+           if (runTime - callTime >= timeout) //Check for Timeout
            {
-             Serial.println("Keypad Timeout");
+             DEBUG_PRINTLN("Keypad Timeout");
              breakFlag = 1;
            }
            if (breakFlag)
@@ -141,12 +140,12 @@ KeyPad::KeyPad()
            {
              for (m = 0; m < 3; m++) //Check rows
              {
-               if (KeyPad::buttonPressed(buttonHash) || (p >= maxIN))
+               if (buttonPressed(buttonHash) || (p >= maxIN))
                {
-                 KeyPad::checkCode(p);
+                 checkCode(p);
                  breakFlag = 1;
                }
-               else if (KeyPad::buttonPressed(Zahlenfeld[n][m]))
+               else if (buttonPressed(Zahlenfeld[n][m]))
                {
                  inputCode[p] = (Zahlenfeld[n][m]);
                  Serial.println(ZahlenfeldPrint[n][m]);

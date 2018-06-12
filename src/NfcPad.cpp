@@ -1,28 +1,35 @@
-#include "KeyPad.h"
+// #include "KeyPad.h"
 #include "NfcPad.h"
+#include "global.h"
 
-NfcPad::NfcPad()
-{
+NfcPad::NfcPad(uint8_t clk, uint8_t miso, uint8_t mosi, uint8_t ss) : Adafruit_PN532(clk, miso, mosi, ss){
+
+}
+NfcPad::NfcPad(uint8_t irq, uint8_t reset) : Adafruit_PN532(irq, reset){
+
+}
+NfcPad::NfcPad(uint8_t ss) : Adafruit_PN532(ss){
 
 }
 
-  void NfcPad::monitoring()
+
+  void NfcPad::monitoring(int timeout)
   {
     // Wait for an ISO14443A type cards (Mifare, etc.).  When one is found
      // 'uid' will be populated with the UID, and uidLength will indicate
      // if the uid is 4 bytes (Mifare Classic) or 7 bytes (Mifare Ultralight)
-     success = nfc.readPassiveTargetID(PN532_MIFARE_ISO14443A, uid, &uidLength
-                                       ,500); // Timeout is 150ms
+     success = Adafruit_PN532::readPassiveTargetID(PN532_MIFARE_ISO14443A, uid, &uidLength
+                                       ,timeout);
 
      if (success)
      {
        // Display some basic information about the card
-       Serial.println("Found an ISO14443A card");
-       Serial.print("  UID Length: ");
-       Serial.print(uidLength, DEC);
-       Serial.println(" bytes");
-       Serial.print("  UID Value: ");
-       nfc.PrintHex(uid, uidLength);
+       DEBUG_PRINTLN("Found an ISO14443A card");
+       DEBUG_PRINT("  UID Length: ");
+       DEBUG_PRINTDEC(uidLength);
+       DEBUG_PRINTLN(" bytes");
+       DEBUG_PRINT("  UID Value: ");
+       Adafruit_PN532::PrintHex(uid, uidLength);
 
        if (uidLength == 4 || uidLength == 7)
        {
@@ -39,14 +46,14 @@ NfcPad::NfcPad()
 
          if (checkid(cardid))
          {
-           accesgranted();
+           // accesgranted();
          }
          else
          {
-           accesdenied();
+           // accesdenied();
          }
        }
-       Serial.println("");
+       DEBUG_PRINTLN("");
 
    //    if (uidLength == 7) //first 4 hex should be enough
    //    {
@@ -74,23 +81,15 @@ NfcPad::NfcPad()
    *         False if not*/
 
   {
-  //	Serial.println(authorizedCardsSize);
-  //	Serial.println(authorizedCards[0][0]);
-  //	Serial.println(String(authorizedCards[0][1]));
-  //	Serial.println(authorizedCards[1][0]);
-
       for(int iterator = 0; iterator < authorizedCardsSize; iterator++)
       {
-  //    	Serial.println("ForLoop");
-  //    	Serial.println(iterator);
-  //    	Serial.println(authorizedCardsSize);
-      	Serial.println(authorizedCards[iterator]);
+      	  DEBUG_PRINTLN(authorizedCards[iterator]);
           if (idcard == authorizedCards[iterator])
           {
-  	    Serial.println(authorizedCardsName[iterator]);
+  	    // DEBUG_PRINTLN(authorizedCardsName[iterator]);
               return true;
           }
       }
-      Serial.println("NoAccess with this Card");
+      DEBUG_PRINTLN("NoAccess with this Card");
       return false;
   }
