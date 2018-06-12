@@ -30,8 +30,6 @@ public:
     KeyPad();
     void init();
     bool buttonPressed(int button);
-    void accesgranted();
-    void accesdenied();
     void checkCode(int p);
     void reset();
     void monitoring(unsigned int timeout);

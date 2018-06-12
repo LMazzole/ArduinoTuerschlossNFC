@@ -1,5 +1,6 @@
 // #include "KeyPad.h"
 #include "NfcPad.h"
+#include "access.h"
 #include "global.h"
 
 NfcPad::NfcPad(uint8_t clk, uint8_t miso, uint8_t mosi, uint8_t ss) : Adafruit_PN532(clk, miso, mosi, ss){
@@ -46,11 +47,11 @@ NfcPad::NfcPad(uint8_t ss) : Adafruit_PN532(ss){
 
          if (checkid(cardid))
          {
-           // accesgranted();
+           accessgranted();
          }
          else
          {
-           // accesdenied();
+           accessdenied();
          }
        }
        DEBUG_PRINTLN("");
