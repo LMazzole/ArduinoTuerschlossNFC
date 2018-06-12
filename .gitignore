@@ -48,10 +48,10 @@ _ReSharper*/
 *.dvi
 *-converted-to.*
 # these rules might exclude image files for figures etc.
- *.ps
- *.eps
- *.pdf
- *.doc
+*.ps
+*.eps
+*.pdf
+*.doc
 
 ## Bibliography auxiliary files (bibtex/biblatex/biber):
 *.bbl
@@ -219,3 +219,7 @@ TSWLatexianTemp*
 .settings
 AccesCodes.txt
 libraries/
+.pioenvs
+.piolibdeps
+.clang_complete
+.gcc-flags.json
