@@ -1,3 +1,5 @@
+#define MYDEBUG
+
 #include "access.h"
 #include "global.h"
 #include "Arduino.h"

@@ -15,7 +15,7 @@ private:
                             {button7, button8, button9},
                             {buttonStar, button0, buttonHash}};
 
-  char* ZahlenfeldPrint[4][3] = { {"--1--", "--2--", "--3--"},
+const char* ZahlenfeldPrint[4][3] = { {"--1--", "--2--", "--3--"},
                                   {"--4--","--5--", "--6--"},
                                   {"--7--", "--8--", "--9--"},
                                   {"--*--", "--0--", "--#--"}};

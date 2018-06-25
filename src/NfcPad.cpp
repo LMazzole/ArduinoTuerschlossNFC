@@ -1,3 +1,5 @@
+#define MYDEBUG
+
 // #include "KeyPad.h"
 #include "NfcPad.h"
 #include "access.h"
@@ -19,6 +21,7 @@ NfcPad::NfcPad(uint8_t ss) : Adafruit_PN532(ss){
     // Wait for an ISO14443A type cards (Mifare, etc.).  When one is found
      // 'uid' will be populated with the UID, and uidLength will indicate
      // if the uid is 4 bytes (Mifare Classic) or 7 bytes (Mifare Ultralight)
+      DEBUG_PRINTLN("NfcPad::monitoring(int timeout)");
      success = Adafruit_PN532::readPassiveTargetID(PN532_MIFARE_ISO14443A, uid, &uidLength
                                        ,timeout);
 
@@ -80,14 +83,14 @@ NfcPad::NfcPad(uint8_t ss) : Adafruit_PN532(ss){
    * @param idcard NFC ID from the scanned Card
    * @return True if Authorized \n
    *         False if not*/
-
   {
+    DEBUG_PRINTLN("NfcPad::checkid(double idcard)");
       for(int iterator = 0; iterator < authorizedCardsSize; iterator++)
       {
       	  DEBUG_PRINTLN(authorizedCards[iterator]);
           if (idcard == authorizedCards[iterator])
           {
-  	    // DEBUG_PRINTLN(authorizedCardsName[iterator]);
+  	         DEBUG_PRINTLN(authorizedCardsName[iterator]);
               return true;
           }
       }

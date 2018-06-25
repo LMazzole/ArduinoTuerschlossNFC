@@ -1,3 +1,5 @@
+#define MYDEBUG
+
 #include "KeyPad.h"
 #include "access.h"
 
@@ -15,6 +17,7 @@ KeyPad::KeyPad()
   * @return True if Pressed
   *         False if not*/
  {
+   DEBUG_PRINTLN("KeyPad::buttonPressed(int button)");
    if (digitalRead(button) == LOW)
    {
      while (1)
@@ -35,7 +38,7 @@ KeyPad::KeyPad()
     * @return Void
     */
    {
-     DEBUG_PRINTLN("Reset");
+     DEBUG_PRINTLN("KeyPad::reset");
      int r;  //VarReset
      for (r = 0; r < (maxIN); ++r)
      {
@@ -53,7 +56,7 @@ KeyPad::KeyPad()
     * @return Void
     */
    {
-     Serial.println("Function checkCode");
+     DEBUG_PRINTLN("KeyPad::checkCode(int p)");
      int i;              //VarInputCode
      int correct = 0;    //VarCountPW
      for (i = 0; i < (k); i++)
@@ -76,6 +79,7 @@ KeyPad::KeyPad()
 
    void KeyPad::monitoring(unsigned int timeout)
    {
+     DEBUG_PRINTLN("KeyPad::monitoring(unsigned int timeout)");
       unsigned long callTime = 0;
       unsigned long runTime = 0;
       int breakFlag = 0;
@@ -116,7 +120,7 @@ KeyPad::KeyPad()
                else if (buttonPressed(Zahlenfeld[n][m]))
                {
                  inputCode[p] = (Zahlenfeld[n][m]);
-                 Serial.println(ZahlenfeldPrint[n][m]);
+                 DEBUG_PRINTLN(ZahlenfeldPrint[n][m]);
                  delay(1);
                  ++p;
                }
