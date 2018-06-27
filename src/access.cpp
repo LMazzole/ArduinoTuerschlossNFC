@@ -1,4 +1,4 @@
-#define MYDEBUG
+// #define MYDEBUG
 
 #include "access.h"
 #include "global.h"
@@ -13,7 +13,7 @@ void accessgranted()
  *  @return Void
  */
 {
-  DEBUG_PRINTLN("Access granted");
+  Serial.println("Access granted!");
   digitalWrite(ledOpen, HIGH);
   analogWrite(doorPin, 255);
   delay(2000); //2sec
@@ -30,7 +30,7 @@ void accessdenied()
    * @return Void.
    */
   {
-    DEBUG_PRINTLN("Access denied");
+    Serial.println("Access denied!");
     digitalWrite(ledClose, HIGH);
     delay(1000);  //1sec
     digitalWrite(ledClose, LOW);

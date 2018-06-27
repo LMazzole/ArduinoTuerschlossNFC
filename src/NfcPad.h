@@ -1,7 +1,7 @@
 #ifndef NFCPAD_H_
 #define NFCPAD_H_
 
-#define MYDEBUG
+// #define MYDEBUG
 
 #include "debug.h"
 #include "Adafruit_PN532.h"

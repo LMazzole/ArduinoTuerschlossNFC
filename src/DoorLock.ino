@@ -10,7 +10,7 @@
  */
 
 /* Includes */
-#define MYDEBUG
+// #define MYDEBUG
 #include "debug.h"
 
 #include "Arduino.h"
@@ -36,6 +36,7 @@ NfcPad nfcpad(PN532_SCK,
                    PN532_MOSI,
                    PN532_SS);
 
+KeyPad keypad;
 
 #if defined(ARDUINO_ARCH_SAMD)
 /** for Zero, output on USB Serial console, remove line below if using programming port to program the Zero!
@@ -44,13 +45,11 @@ NfcPad nfcpad(PN532_SCK,
 #define Serial SerialUSB
 #endif
 
-KeyPad keypad;
-// NfcPad nfcpad;
-
 //=============================================================================================================
 void setup()
 {
-  Serial.begin(115200);
+  Serial.begin(115200); //115200
+  DEBUG_PRINTLN("===ARDUINO INIT===");
 
   pinMode(ledOpen, OUTPUT);
   pinMode(ledClose, OUTPUT);
@@ -84,23 +83,7 @@ void setup()
   digitalWrite(buttonHash, HIGH);
 
 //==========================================================================================
-//  nfc.begin();
-//  nfcpad.init();
-//  keypad.init();
-
-
-//  // Got ok data, print it out!
-//  Serial.print("Found chip PN5");
-//  Serial.println((versiondata >> 24) & 0xFF, HEX);
-//  Serial.print("Firmware ver. ");
-//  Serial.print((versiondata >> 16) & 0xFF, DEC);
-//  Serial.print('.');
-//  Serial.println((versiondata >> 8) & 0xFF, DEC);
-//
-//
-//  nfc.SAMConfig();   // configure board to read RFID tags
-//
-//  Serial.println("Waiting for an ISO14443A Card ...");
+ nfcpad.SAMConfig();   // configure board to read RFID tags
 }
 
 //=========================================================================================
@@ -111,8 +94,7 @@ void loop()
 //=====================================================================================================
 //ABFRAGE NFC
   DEBUG_PRINTLN("Abfrage NFC");
-
-  nfcpad.monitoring(500);
+  nfcpad.monitoring(100);
 
 
 //=====================================================================================================

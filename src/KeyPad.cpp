@@ -1,4 +1,4 @@
-#define MYDEBUG
+// #define MYDEBUG
 
 #include "KeyPad.h"
 #include "access.h"
@@ -17,13 +17,19 @@ KeyPad::KeyPad()
   * @return True if Pressed
   *         False if not*/
  {
-   DEBUG_PRINTLN("KeyPad::buttonPressed(int button)");
+  // DEBUG_PRINTLN("KeyPad::buttonPressed(int button)");
    if (digitalRead(button) == LOW)
    {
+     DEBUG_PRINTLN("KeyPad::buttonPressed--LOW");
      while (1)
      {
+       delay(2); //entprellen
        if (digitalRead(button) == HIGH)
+       {
+         delay(2); //entprellen
+         DEBUG_PRINTLN("KeyPad::buttonPressed--HIGH");
          return true;
+       }
      }
    }
    return false;
@@ -38,11 +44,11 @@ KeyPad::KeyPad()
     * @return Void
     */
    {
-     DEBUG_PRINTLN("KeyPad::reset");
+     DEBUG_PRINTLN("KeyPad::reset()");
      int r;  //VarReset
      for (r = 0; r < (maxIN); ++r)
      {
-       inputCode[r] = '0';
+       inputCode[r] = 0;
      }
    }
 
@@ -61,12 +67,18 @@ KeyPad::KeyPad()
      int correct = 0;    //VarCountPW
      for (i = 0; i < (k); i++)
      {
+       DEBUG_PRINT(String(inputCode[i],DEC));
+       DEBUG_PRINT("-");
        if (inputCode[i] == secretCode[i])
        {
  	       correct++;
        }
      }
-     KeyPad::reset(); //reset code-vector
+     DEBUG_PRINTLN("");
+     DEBUG_PRINT("Correct: ");
+     DEBUG_PRINTLN(correct);
+     DEBUG_PRINTLN("");
+     reset(); //reset code-vector
      if ((correct == k) && (p == k))
      {
        accessgranted();
@@ -80,21 +92,24 @@ KeyPad::KeyPad()
    void KeyPad::monitoring(unsigned int timeout)
    {
      DEBUG_PRINTLN("KeyPad::monitoring(unsigned int timeout)");
-      unsigned long callTime = 0;
-      unsigned long runTime = 0;
-      int breakFlag = 0;
-      int p = 0;          //VarCountlenghtIN
-
      if (buttonPressed(buttonStar))
        {
-         DEBUG_PRINTLN("--*--");
+         Serial.println("--*--");
+         unsigned long callTime = 0;
+         unsigned long runTime = 0;
+         int breakFlag = 0;
+         int p = 0;          //VarCountlenghtIN
+
          digitalWrite(ledClose, HIGH); /**TODO:Fix Hardware Issue->switch to ledOpen when fixed*/
          delay(20);
          digitalWrite(ledClose, LOW);
          reset();
+         // DEBUG_PRINTLN("==Nach Reset=="); delay(100);
          callTime = millis(); //Set time of function-call
+         //DEBUG_PRINTLN(callTime);
          while (1)
          {
+           // DEBUG_PRINTLN("==Enter Loop"); delay(100);
            runTime=millis();
            if (runTime - callTime >= timeout) //Check for Timeout
            {
@@ -114,14 +129,14 @@ KeyPad::KeyPad()
              {
                if (buttonPressed(buttonHash) || (p >= maxIN))
                {
+                 Serial.println("--#--");
                  checkCode(p);
                  breakFlag = 1;
                }
                else if (buttonPressed(Zahlenfeld[n][m]))
                {
                  inputCode[p] = (Zahlenfeld[n][m]);
-                 DEBUG_PRINTLN(ZahlenfeldPrint[n][m]);
-                 delay(1);
+                 Serial.println(ZahlenfeldPrint[n][m]);
                  ++p;
                }
              }

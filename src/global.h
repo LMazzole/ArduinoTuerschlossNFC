@@ -47,14 +47,28 @@
 #define PN532_RESET (A2)
 
 
-/** Max length of Input*/
-const int maxIN = (10 + 1);
-
 /** customize your Code here */
-static char secretCode[] = {button3, button3, button3, button3};
+static int secretCode[] = {button3, button3, button3, button3};
+
+/** Max length of Input*/
+static const int maxIN = (10 + 1);
+
+static const int Zahlenfeld[4][3] = {  {button1, button2, button3},
+                                      {button4, button5, button6},
+                                      {button7, button8, button9},
+                                      {buttonStar, button0, buttonHash}};
+
+static const char* ZahlenfeldPrint[4][3] = { {"--1--", "--2--", "--3--"},
+                                             {"--4--", "--5--", "--6--"},
+                                             {"--7--", "--8--", "--9--"},
+                                             {"--*--", "--0--", "--#--"}};
+
+/**Initialize a Array for the Inputs*/
+static int inputCode[maxIN];
+
 
 /** customize your authorized cards here */
-const unsigned long int authorizedCards[] = {3295930656} ;	// ""TestCard""
+const unsigned long int authorizedCards[] = {1111111111} ;	// ""TestCard""
 
 static const char* authorizedCardsName[] = {"TestCard"};
 

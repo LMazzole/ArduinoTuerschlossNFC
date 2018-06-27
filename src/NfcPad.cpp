@@ -1,4 +1,4 @@
-#define MYDEBUG
+// #define MYDEBUG
 
 // #include "KeyPad.h"
 #include "NfcPad.h"
@@ -87,10 +87,10 @@ NfcPad::NfcPad(uint8_t ss) : Adafruit_PN532(ss){
     DEBUG_PRINTLN("NfcPad::checkid(double idcard)");
       for(int iterator = 0; iterator < authorizedCardsSize; iterator++)
       {
-      	  DEBUG_PRINTLN(authorizedCards[iterator]);
+      	  //DEBUG_PRINTLN(authorizedCards[iterator]);
           if (idcard == authorizedCards[iterator])
           {
-  	         DEBUG_PRINTLN(authorizedCardsName[iterator]);
+  	         //DEBUG_PRINTLN(authorizedCardsName[iterator]);
               return true;
           }
       }
